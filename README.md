@@ -9,4 +9,5 @@ Simply download and execute the setup.sh script with root privileges :
 wget https://raw.githubusercontent.com/gbwebdev/custom-linux-environment/main/setup.sh
 chmod +x setup.sh
 sudo ./setup.sh
+source ~/.bashrc
 ```

@@ -26,10 +26,8 @@ rm -rf /tmp/exa
 
 cd $SUDO_USER_HOME
 
-wget https://raw.githubusercontent.com/ogham/exa/master/completions/bash/exa -O /etc/bash_completion.d/exa
-chmod o+r /etc/bash_completion.d/exa
-
 mkdir workspace
+chown $SUDO_USER:$SUDO_USER workspace
 
 echo -e "\n\n/usr/bin/keychain -q --nogui \$HOME/.ssh/id_ed25519\nsource \$HOME/.keychain/$(hostname)-sh" >> .bashrc
 
@@ -38,7 +36,7 @@ chown root:root  /usr/local/bin/.gbi_bash_prompt.sh
 chmod 0555 /usr/local/bin/.gbi_bash_prompt.sh
 
 sed -i 's/#force_color_prompt/force_color_prompt/g' .bashrc
-perl -0777 -i -pe 's/if \[ "\$color_prompt" = yes ]; then\n    PS1(.*)/$if \[ "\$color_prompt" = yes ]; then\n #   PS1\n    source \/usr\/local\/bin\/.gbi_bash_prompt.sh/' .bashrc
+perl -0777 -i -pe 's/if \[ "\$color_prompt" = yes ]; then\n    PS1(.*)/if \[ "\$color_prompt" = yes ]; then\n #   PS1$1\n    source \/usr\/local\/bin\/.gbi_bash_prompt.sh/' .bashrc
 
 wget https://raw.githubusercontent.com/gbwebdev/custom-linux-environment/main/.bash_aliases -O .bash_aliases
 chown $SUDO_USER:$SUDO_USER .bash_aliases
