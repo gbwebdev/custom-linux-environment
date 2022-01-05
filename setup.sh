@@ -5,20 +5,24 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-
-read -p "Do you want to apply the changes for futur users?" -n 1 -r
-echo    # (optional) move to a new line
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    # do dangerous stuff
-fi
-
 SUDO_USER_HOME=/home/$SUDO_USER
 
 apt update
 apt upgrade
 
-apt install keychain exa atop
+apt install keychain atop
+
+exa_version=0.10.0
+mkdir /tmp/exa
+cd /tmp/exa
+wget https://github.com/ogham/exa/releases/download/v$exa_version/exa-linux-x86_64-v$exa_version.zip
+unzip exa-linux-x86_64-v$exa_version.zip
+cp bin/exa /usr/local/bin/exa
+chmod o+x /usr/local/bin/exa
+cp completions/exa.bash /etc/bash_completion.d/exa.bash
+chmod o+r /etc/bash_completion.d/exa.bash
+cd /tmp
+rm -rf /tmp/exa
 
 cd $SUDO_USER_HOME
 
@@ -34,14 +38,14 @@ chown root:root  /usr/local/bin/.gbi_bash_prompt.sh
 chmod 0555 /usr/local/bin/.gbi_bash_prompt.sh
 
 sed -i 's/#force_color_prompt/force_color_prompt/g' .bashrc
-perl -0777 -pe 's/if \[ "\$color_prompt" = yes ]; then\n    PS1(.*)/  # PS1=$1\n    source /usr/local/bin/.gbi_bash_prompt.sh/' .bashrc
+perl -0777 -i -pe 's/if \[ "\$color_prompt" = yes ]; then\n    PS1(.*)/$if \[ "\$color_prompt" = yes ]; then\n #   PS1\n    source \/usr\/local\/bin\/.gbi_bash_prompt.sh/' .bashrc
 
 wget https://raw.githubusercontent.com/gbwebdev/custom-linux-environment/main/.bash_aliases -O .bash_aliases
 chown $SUDO_USER:$SUDO_USER .bash_aliases
 source .bashrc
 
 
-read -p "Do you want to apply the changes for futur users?" -n 1 -r
+read -p "Do you want to apply the changes for futur users (Y/n)?" -n 1 -r
 echo    # (optional) move to a new line
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
