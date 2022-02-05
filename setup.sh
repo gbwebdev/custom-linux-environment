@@ -10,7 +10,7 @@ SUDO_USER_HOME=/home/$SUDO_USER
 apt update
 apt upgrade
 
-apt install keychain atop
+apt install keychain atop zip unzip
 
 exa_version=0.10.0
 mkdir /tmp/exa
