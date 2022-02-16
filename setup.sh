@@ -31,6 +31,11 @@ chown $SUDO_USER:$SUDO_USER workspace
 
 echo -e "\n\n/usr/bin/keychain -q --nogui \$HOME/.ssh/id_ed25519\nsource \$HOME/.keychain/$(hostname)-sh" >> .bashrc
 
+wget https://raw.githubusercontent.com/gbwebdev/custom-linux-environment/main/activate_venv.sh -O /usr/local/bin/activate_venv.sh
+chown root:root  /usr/local/bin/activate_venv.sh
+chmod 0444 /usr/local/bin/activate_venv.sh
+
+
 wget https://raw.githubusercontent.com/gbwebdev/custom-linux-environment/main/.gbi_bash_prompt.sh -O /usr/local/bin/.gbi_bash_prompt.sh
 chown root:root  /usr/local/bin/.gbi_bash_prompt.sh
 chmod 0555 /usr/local/bin/.gbi_bash_prompt.sh

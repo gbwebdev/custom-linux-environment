@@ -37,7 +37,8 @@ alias rr="rm -r"
 alias ports='netstat -tulanp'
 
 #activate python venv
-alias vact=". venv/bin/activate"
+alias mkvenv="python3 -m venv venv"
+alias vact="source /usr/local/bin/activate_venv.sh"
 
 #Prefer atop to top:
 alias top='atop'
