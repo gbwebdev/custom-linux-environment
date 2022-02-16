@@ -18,4 +18,6 @@ function upsearch () {
   fi
 }
 
+currentdir=$(pwd)
 upsearch
+cd $currentdir
